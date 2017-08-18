@@ -1,0 +1,50 @@
+//install nginx
+sudo apt-get install nginx
+
+//install php
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install -y php7.1 php7.1-mcrypt php7.1-gd php7.1-fpm
+
+//install mariadb
+sudo apt-get install mariadb-server
+
+//install composer
+cd ~/Donwloads
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+sudo chmod +x /usr/local/bin/composer
+
+//install laravel
+sudo mkdir -p /var/www/laravel
+sudo nano /etc/nginx/sites-available/default
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/laravel/public;
+    index index.php index.html index.htm;
+
+    server_name server_domain_or_IP;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+
+sudo service nginx restart
+
+sudo composer create-project laravel/laravel /var/www/laravel
+sudo chown -R :www-data /var/www/laravel
+sudo chmod -R 775 /var/www/laravel/storage
+
+
