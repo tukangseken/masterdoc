@@ -1,0 +1,11 @@
+//apt-get-fails-on-16-04-installing-mongodb
+//remove existing repository for mongodb
+sudo rm /etc/apt/sources.list.d/mongodb*.list
+//add the key 
+sudp apt-key adv/--keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+//create a new mongodb repository list file
+sudo bash -c 'echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" > /etc/apt/sources.list.d/mongodb-org-3.2.list'
+//update the repository
+sudo apt-get update
+//install mongodb
+sudo apt-get install -y mongodb-org
