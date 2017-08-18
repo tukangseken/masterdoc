@@ -8,5 +8,5 @@ git clone https://github.com/DivanteLtd/open-loyalty
 //running app from docker-toolbox
 cd /open-loyalty
 docker-compose up -d
-//after the command will create 4 docker-images (postgres, mailhog, elasticsearch, node)
+//after the command will create 4 docker-images (ol_frontend(latest), postgres(latest), php(7.0-apache), mailhog(latest), elasticsearch(2.2), node)
 docker-compose exec backend phing demo
