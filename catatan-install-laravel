@@ -1,0 +1,11 @@
+//add repository
+sudo add-apt-repository ppa:webupd8team/sublime-text-2
+
+//update
+sudo apt-get update
+
+//remove existing sublime-text
+sudo apt-get --purge remove sublime-text*
+
+//install sublime-text-2
+sudo apt-get install sublime-text 
