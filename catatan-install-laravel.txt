@@ -1,0 +1,38 @@
+//install apache2
+sudo apt-get install apache2
+
+//download composer
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
+//install laravel
+cd /var/www/html
+sudo composer create-project laravel/laravel your-project --prefer-dist
+
+//set permission to public folder
+sudo chgrp -R www-data /var/www/html/project
+sudo chmod -R 775 /var/www/html/project/storage
+
+//create configurtaion virtual host
+cd /etc/apache2/sites-available
+sudo nano laravel.conf
+
+<VirtualHost *:80>
+    ServerName localhost
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html/project/public
+
+    <Directory /var/www/html/project>
+        AllowOverride All
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+//enable custom configurtaion and mod_rewrite
+sudo a2dissite 000-default.conf
+sudo a2ensite laravel.conf
+sudo a2enmod rewrite
+sudo service apache2 restart
