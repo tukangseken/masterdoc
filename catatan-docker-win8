@@ -1,0 +1,11 @@
+//install docker-toolbox-for-windows8
+https://download.docker.com/win/stable/InstallDocker.msi
+
+//clone open-loyalty-divante
+git clone https://github.com/DivanteLtd/open-loyalty
+
+//create image docker
+//running app from docker-toolbox
+cd /open-loyalty
+docker-compose up -d
+docker-compose exec backend phing demo
