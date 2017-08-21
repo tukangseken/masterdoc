@@ -1,0 +1,9 @@
+sudo parted -l
+sudo cfdisk
+lsblk -f
+blkid
+sudo file -sL/dev/sda1
+fsck -N /dev/sda1
+cat /etc/fstab
+mount | grep "/dev"
+df -khT
